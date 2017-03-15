@@ -16,6 +16,7 @@ class PrimeMultiples
       # Implements Sieve of Eratosthenes
       # https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
       # Complexity O(n log log n) but will be faster with lower prime count
+      raise ArgumentError, 'Only doing prime counts up to 90.' if count > 90
       found_primes = []
       integers = [true] * (MAX_SIEVE_INTEGER + 1) # zero
       (FIRST_PRIME..MAX_SIEVE_INTEGER).each  do |i|
