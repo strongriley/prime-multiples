@@ -10,6 +10,8 @@ MAX_SIEVE_INTEGER = 500
 MAX_PRIME_COUNT = 90
 MAX_I = Math.sqrt(MAX_SIEVE_INTEGER)
 
+# Finds prime numbers and prints a multiplication table between them.
+# Use main() method
 class PrimeMultiples
   class << self
     def find_primes(count)
