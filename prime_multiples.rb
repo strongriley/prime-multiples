@@ -48,13 +48,13 @@ class PrimeMultiples
     def main(count = DEFAULT_PRIME_COUNT)
       primes = find_primes(count)
       multiples = multiply_primes(primes)
-      print_multiples(multiples)
+      puts build_table(multiples)
     end
 
-    def print_multiples(multiples)
+    def build_table(multiples)
       # Get max digits for spacing in grid
       digit_size = (multiples[multiples.size - 1][multiples.size - 1]).to_s.size
-      multiples.each do |row|
+      row_strs = multiples.map do |row|
         row_text = ''
         row.each do |num|
           num_size = num.to_s.size
@@ -62,9 +62,9 @@ class PrimeMultiples
           row_text <<  "| #{num}#{extra_spaces} "
         end
         row_text << '|'
-        puts row_text
-        puts '-' * row_text.size
+        "#{row_text}\n#{'-' * row_text.size}\n"
       end
+      row_strs.join
     end
 
     private

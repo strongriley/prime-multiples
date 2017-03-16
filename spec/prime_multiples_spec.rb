@@ -37,7 +37,21 @@ describe PrimeMultiples do
     end
   end
 
-  describe '.print_multiples' do
-    # TODO(riley): how to test stdout?
+  describe '.build_table' do
+    it 'returns 3x3 with proper spacing given primes 2, 3' do
+      out_str = "|   | 2 | 3 |\n"\
+                "-------------\n"\
+                "| 2 | 4 | 6 |\n"\
+                "-------------\n"\
+                "| 3 | 6 | 9 |\n"\
+                "-------------\n"
+      grid = [
+        [nil, 2, 3],
+        [2,   4, 6],
+        [3,   6, 9]
+      ]
+      expect(PrimeMultiples.build_table(grid)).to eql(out_str)
+    end
+    # TODO(riley): test stdout?
   end
 end
