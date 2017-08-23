@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require_relative './base_multiples'
+
 DEFAULT_PRIME_COUNT = 10
 FIRST_PRIME = 2 # Have to seed
 
@@ -12,9 +14,9 @@ MAX_I = Math.sqrt(MAX_SIEVE_INTEGER)
 
 # Finds prime numbers and prints a multiplication table between them.
 # Use main() method
-class PrimeMultiples
+class PrimeMultiples < BaseMultiples
   class << self
-    def find_primes(count)
+    def find_numbers(count)
       # Implements Sieve of Eratosthenes
       # https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
       # Complexity O(n log log n) but will be faster with lower prime count
@@ -29,44 +31,6 @@ class PrimeMultiples
         mark_multiples(i, integers)
       end
       found_primes
-    end
-
-    def multiply_primes(primes)
-      # Create a square grid for all the prime multiples and labels
-      # TODO(riley): think time complexity is n^1.5 with optimization
-      # If we visited each combo it'd be n^2
-      multiples = (0..primes.size).collect { [nil] * (primes.size + 1) }
-      primes.each_with_index do |first_prime, i|
-        multiples[0][i + 1] = first_prime # column labels
-        multiples[i + 1][0] = first_prime # row labels
-        (i..primes.size - 1).each do |j|
-          together = first_prime * primes[j]
-          multiples[i + 1][j + 1] = multiples[j + 1][i + 1] = together
-        end
-      end
-      multiples
-    end
-
-    def main(count = DEFAULT_PRIME_COUNT)
-      primes = find_primes(count)
-      multiples = multiply_primes(primes)
-      puts build_table(multiples)
-    end
-
-    def build_table(multiples)
-      # Get max digits for spacing in grid
-      digit_size = (multiples[multiples.size - 1][multiples.size - 1]).to_s.size
-      row_strs = multiples.map do |row|
-        row_text = ''
-        row.each do |num|
-          num_size = num.to_s.size
-          extra_spaces = ' ' * (digit_size - num_size)
-          row_text <<  "| #{num}#{extra_spaces} "
-        end
-        row_text << '|'
-        "#{row_text}\n#{'-' * row_text.size}\n"
-      end
-      row_strs.join
     end
 
     private
